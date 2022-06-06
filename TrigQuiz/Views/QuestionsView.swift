@@ -10,7 +10,9 @@ import SwiftUI
 
 struct QuestionsView: View {
     
-    @Binding var theQuestion: Question
+    @ObservedObject var theQuestion: Question
+    
+    @State var answerRow = AnswerRow()
     
     let isDegrees: Bool
     
@@ -58,19 +60,25 @@ struct QuestionsView: View {
                         .font(.title2)
                         .foregroundColor(.accentColor)
                     
-                    DegreeAnswerRow()
+                    answerRow
                     
                     Button(action: {
-                        print(theQuestion.checked)
-                        
                         theQuestion.didCheck()
+                    
+                        if(isDegrees){
+                            self.theQuestion.answerD = self.theQuestion.calculateAnswerD()
+                        }
                         
-                        print(theQuestion.checked)
                     }, label: {
                         Text("Check Answer")
                             .font(.title)
                             .foregroundColor(.accentColor)
                     })
+                    
+                    Text("Answer: \(theQuestion.answerD)")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .padding()
                     
                     Spacer()
 

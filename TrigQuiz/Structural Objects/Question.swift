@@ -15,31 +15,143 @@ class Question: ObservableObject{
     var firstPart: String
     var secondPart: Double
     
-    @Published var checked = false
+    @Published var answerD: String = ""
     
+    @Published var checked = false
     
     init(qN: Int){
         firstPart = possibleFirstParts[Int(arc4random_uniform(UInt32(possibleFirstParts.count)))]
         secondPart = possibleSecondParts[Int(arc4random_uniform(UInt32(possibleSecondParts.count)))]
-        
+
         questionNum = qN
     }
     
-    func calculateAnswer() -> Double{
-        
-        if(firstPart == "sin"){
-            return sin(secondPart)
+    func calculateAnswerD() -> String{
+        if((firstPart == "sin" &&
+            (secondPart == 30.0 || secondPart == 150.0))
+           ||
+           (firstPart == "cos" &&
+            (secondPart == 60.0 || secondPart == 300.0)))
+        {
+            return "1/2"
         }
         
-        else if(firstPart == "cos"){
-            return cos(secondPart)
+        else if((firstPart == "sin" &&
+                 (secondPart == 210.0 || secondPart == 330.0))
+                ||
+                (firstPart == "cos" &&
+                 (secondPart == 120.0 || secondPart == 240.0)))
+        {
+            return "-1/2"
         }
         
-        else if(firstPart == "tan"){
-            return tan(secondPart)
+        else if((firstPart == "sin" &&
+                 (secondPart == 45.0 || secondPart == 135.0))
+                ||
+                (firstPart == "cos" &&
+                 (secondPart == 45.0 || secondPart == 315.0)))
+        {
+            return "√2/2"
         }
         
-        return 0.0
+        else if((firstPart == "sin" &&
+                 (secondPart == 225.0 || secondPart == 315.0))
+                ||
+                (firstPart == "cos" &&
+                 (secondPart == 135.0 || secondPart == 225.0)))
+        {
+            return "-√2/2"
+        }
+        
+        else if((firstPart == "sin" &&
+                 (secondPart == 60.0 || secondPart == 120.0))
+                ||
+                (firstPart == "cos" &&
+                 (secondPart == 30.0 || secondPart == 330.0)))
+        {
+            return "√3/2"
+        }
+        
+        else if((firstPart == "sin" &&
+                 (secondPart == 240.0 || secondPart == 300.0))
+                ||
+                (firstPart == "cos" &&
+                 (secondPart == 150.0 || secondPart == 210.0)))
+        {
+            return "-√3/2"
+        }
+        
+        //ONLY TAN
+        
+        else if(firstPart == "tan" &&
+                (secondPart == 60.0 || secondPart == 240.0))
+        {
+            return "√3"
+        }
+        
+        else if(firstPart == "tan" &&
+                (secondPart == 120.0 || secondPart == 300.0))
+        {
+            return "-√3"
+        }
+        
+        else if(firstPart == "tan"
+                && (secondPart == 30.0 || secondPart == 210.0))
+        {
+            return "√3/3"
+        }
+        
+        else if(firstPart == "tan"
+                && (secondPart == 150.0 || secondPart == 330.0))
+        {
+            return "-√3/3"
+        }
+        
+        //UP, DOWN, LEFT, RIGHT
+        
+        else if ((firstPart == "sin" && secondPart == 90.0)
+                 ||
+                 (firstPart == "cos" && (secondPart == 360.0))
+                 ||
+                 (firstPart == "tan" &&
+                  (secondPart == 45.0 || secondPart == 225.0)))
+        {
+            return "1"
+        }
+        
+        else if((firstPart == "sin" && secondPart == 270.0)
+                ||
+                (firstPart == "cos" && secondPart == 180.0)
+                ||
+                (firstPart == "tan" &&
+                 (secondPart == 135.0 || secondPart == 315.0)))
+        {
+            return "-1"
+        }
+        
+        else if((firstPart == "sin" &&
+                 (secondPart == 180.0 || secondPart == 360.0))
+                ||
+                (firstPart == "cos" &&
+                 (secondPart == 90.0 || secondPart == 270.0))
+                ||
+                (firstPart == "tan" &&
+                 (secondPart == 180.0 || secondPart == 360.0)))
+        {
+            return "0"
+        }
+        
+        else if(firstPart == "tan" &&
+                (secondPart == 90.0 || secondPart == 270))
+        {
+            return "undifiend"
+        }
+        
+        return "whoops"
+    }
+    
+    func calculateAnswerR(allAnswers: Answer) -> String{
+        return ""
     }
     
     func didCheck(){

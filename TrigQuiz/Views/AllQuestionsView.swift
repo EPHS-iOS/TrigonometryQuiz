@@ -9,35 +9,34 @@ import SwiftUI
 
 struct AllQuestionsView: View {
     
-    @StateObject var theQuiz: Quiz
+    @ObservedObject var theQuiz: Quiz
     
     @State var currentQuestion = 0
     
+    @State var answer = ""
+    
     var body: some View {
         
-        VStack {
-            
-            QuestionsView(theQuestion: $theQuiz.allQuestions[currentQuestion], isDegrees: theQuiz.isDegrees)
-            
-            Spacer()
-            
-            Button(action: {
-                if(theQuiz.allQuestions[currentQuestion].checked){
-                    if(currentQuestion < 9){
+        NavigationView {
+            VStack {
+                
+                QuestionsView(theQuestion: theQuiz.allQuestions[currentQuestion], isDegrees: theQuiz.isDegrees)
+                
+                Spacer()
+                
+                Button(action: {
+                    if(theQuiz.allQuestions[currentQuestion].checked && currentQuestion < 9){
                         currentQuestion += 1
-                        
+                                                        
                         theQuiz.allQuestions[currentQuestion].checked = false
-                        
+                                            
                         print(currentQuestion)
                     }
-                    else{
-                        
-                    }
-                }
-            }, label: {
-                GenericButtons(text: "Next")
-            })
-        }.background(.black)
+                }, label: {
+                    GenericButtons(text: "Next")
+                })
+            }.background(.black)
+        }.navigationBarHidden(currentQuestion < 9)
     }
 }
 

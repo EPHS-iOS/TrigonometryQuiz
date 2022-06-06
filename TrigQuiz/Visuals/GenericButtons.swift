@@ -19,6 +19,7 @@ struct GenericButtons: View {
             .padding()
             .background(.white)
             .cornerRadius(10)
+            .foregroundColor(.accentColor)
 
     }
 }
